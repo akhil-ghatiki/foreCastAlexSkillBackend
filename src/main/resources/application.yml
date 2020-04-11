@@ -1,0 +1,6 @@
+server:
+  port: 8080
+
+appconfig:
+   skill_id: amzn1.ask.skill.0b9395f8-c737-4607-be6b-856dfc7c20bd
+
