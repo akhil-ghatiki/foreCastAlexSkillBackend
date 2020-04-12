@@ -3,6 +3,7 @@ package com.thoughtworks.forecastAlexaSkillBackend.servlet;
 import com.amazon.ask.Skill;
 import com.amazon.ask.Skills;
 import com.amazon.ask.servlet.SkillServlet;
+import com.thoughtworks.forecastAlexaSkillBackend.config.AppConfig;
 import com.thoughtworks.forecastAlexaSkillBackend.handlers.CancelandStopIntentHandler;
 import com.thoughtworks.forecastAlexaSkillBackend.handlers.ErrorHandler;
 import com.thoughtworks.forecastAlexaSkillBackend.handlers.FallbackIntentHandler;
@@ -13,14 +14,17 @@ import com.thoughtworks.forecastAlexaSkillBackend.handlers.MyExceptionHandler;
 import com.thoughtworks.forecastAlexaSkillBackend.handlers.SessionEndedRequestHandler;
 import com.thoughtworks.forecastAlexaSkillBackend.interceptors.LogRequestInterceptor;
 import com.thoughtworks.forecastAlexaSkillBackend.interceptors.LogResponseInterceptor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class AlexaServlet extends SkillServlet {
 
-  public AlexaServlet() {
-    super(getSkill());
+  public AlexaServlet(AppConfig appConfig) {
+    super(getSkill(appConfig));
   }
 
-  private static Skill getSkill() {
+  private static Skill getSkill(AppConfig appConfig) {
+    log.info("Initializing AlexaServlet with Skill ID # " + appConfig.getSkillId());
     return Skills.standard()
         .addRequestHandlers(
             new CancelandStopIntentHandler(),
@@ -35,7 +39,7 @@ public class AlexaServlet extends SkillServlet {
             new LogRequestInterceptor())
         .addResponseInterceptors(
             new LogResponseInterceptor())
-        .withSkillId("amzn1.ask.skill.0b9395f8-c737-4607-be6b-856dfc7c20bd")
+        .withSkillId(appConfig.getSkillId())
         .build();
 
   }
