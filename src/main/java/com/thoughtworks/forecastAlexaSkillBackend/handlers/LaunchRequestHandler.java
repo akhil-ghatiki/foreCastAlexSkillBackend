@@ -6,6 +6,8 @@ import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.LaunchRequest;
 import com.amazon.ask.model.Response;
+
+import java.util.Map;
 import java.util.Optional;
 
 public class LaunchRequestHandler implements RequestHandler {
@@ -20,7 +22,7 @@ public class LaunchRequestHandler implements RequestHandler {
 
     //process the file, get count and kgs variable and into into this string
     //String speechText = "Hello User, {count} people have purchased {kgs} of sugar. Do u want to place order as well ?";
-    String speechText = "Hello Minnions!!";
+    String speechText = "Hello Minnions!! Do You want to go over your grocery list? ";
 
     return input.getResponseBuilder()
         .withSpeech(speechText)
