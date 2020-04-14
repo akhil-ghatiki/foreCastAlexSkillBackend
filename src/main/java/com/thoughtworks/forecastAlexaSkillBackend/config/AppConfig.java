@@ -14,5 +14,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties
 public class AppConfig {
-    private String skillId;
+
+  private String skillId;
 }

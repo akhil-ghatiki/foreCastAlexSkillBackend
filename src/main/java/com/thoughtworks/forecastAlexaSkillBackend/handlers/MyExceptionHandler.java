@@ -7,15 +7,16 @@ import com.amazon.ask.model.Response;
 import java.util.Optional;
 
 public class MyExceptionHandler implements ExceptionHandler {
-    @Override
-    public boolean canHandle(HandlerInput input, Throwable throwable) {
-        return throwable instanceof AskSdkException;
-    }
 
-    @Override
-    public Optional<Response> handle(HandlerInput input, Throwable throwable) {
-        return input.getResponseBuilder()
-                .withSpeech("Error Message")
-                .build();
-    }
+  @Override
+  public boolean canHandle(HandlerInput input, Throwable throwable) {
+    return throwable instanceof AskSdkException;
+  }
+
+  @Override
+  public Optional<Response> handle(HandlerInput input, Throwable throwable) {
+    return input.getResponseBuilder()
+        .withSpeech("Error Message")
+        .build();
+  }
 }

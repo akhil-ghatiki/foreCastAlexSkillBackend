@@ -8,16 +8,17 @@ import com.amazon.ask.model.Response;
 import java.util.Optional;
 
 public class CancelandStopIntentHandler implements RequestHandler {
-    @Override
-    public boolean canHandle(HandlerInput input) {
-        return input.matches(intentName("AMAZON.StopIntent").or(intentName("AMAZON.CancelIntent")));
-    }
 
-    @Override
-    public Optional<Response> handle(HandlerInput input) {
-        return input.getResponseBuilder()
-                .withSpeech("goodbye")
-                .withSimpleCard("HelloWorld", "goodbye")
-                .build();
-    }
+  @Override
+  public boolean canHandle(HandlerInput input) {
+    return input.matches(intentName("AMAZON.StopIntent").or(intentName("AMAZON.CancelIntent")));
+  }
+
+  @Override
+  public Optional<Response> handle(HandlerInput input) {
+    return input.getResponseBuilder()
+        .withSpeech("goodbye")
+        .withSimpleCard("HelloWorld", "goodbye")
+        .build();
+  }
 }

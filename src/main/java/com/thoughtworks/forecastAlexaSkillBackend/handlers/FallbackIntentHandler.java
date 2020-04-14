@@ -13,17 +13,17 @@ import java.util.Optional;
 //              safely deployed for any locale.
 public class FallbackIntentHandler implements RequestHandler {
 
-    @Override
-    public boolean canHandle(HandlerInput input) {
-        return input.matches(intentName("AMAZON.FallbackIntent"));
-    }
+  @Override
+  public boolean canHandle(HandlerInput input) {
+    return input.matches(intentName("AMAZON.FallbackIntent"));
+  }
 
-    @Override
-    public Optional<Response> handle(HandlerInput input) {
-        return input.getResponseBuilder()
-                .withSpeech("fallback")
-                .withSimpleCard("HelloWorld", "fallback")
-                .withReprompt("fallback")
-                .build();
-    }
+  @Override
+  public Optional<Response> handle(HandlerInput input) {
+    return input.getResponseBuilder()
+        .withSpeech("fallback")
+        .withSimpleCard("HelloWorld", "fallback")
+        .withReprompt("fallback")
+        .build();
+  }
 }

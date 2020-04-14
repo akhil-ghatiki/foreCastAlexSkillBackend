@@ -3,7 +3,6 @@ package com.thoughtworks.forecastAlexaSkillBackend.config;
 import com.amazon.ask.servlet.ServletConstants;
 import com.thoughtworks.forecastAlexaSkillBackend.servlet.AlexaServlet;
 import javax.servlet.http.HttpServlet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +13,7 @@ public class WebConfig {
 
   @Autowired
   AppConfig appConfig;
+
   @Bean
   public ServletRegistrationBean<HttpServlet> alexaServlet() {
     loadProperties();

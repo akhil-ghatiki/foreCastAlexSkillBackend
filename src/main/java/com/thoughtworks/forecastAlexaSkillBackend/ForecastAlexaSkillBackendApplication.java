@@ -9,8 +9,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(AppConfig.class)
 public class ForecastAlexaSkillBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ForecastAlexaSkillBackendApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(ForecastAlexaSkillBackendApplication.class, args);
+  }
 
 }
