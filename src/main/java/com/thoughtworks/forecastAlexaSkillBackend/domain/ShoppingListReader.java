@@ -1,12 +1,17 @@
 package com.thoughtworks.forecastAlexaSkillBackend.domain;
 
 import com.google.gson.Gson;
+import com.thoughtworks.forecastAlexaSkillBackend.model.ShoppingItem;
 import com.thoughtworks.forecastAlexaSkillBackend.model.ShoppingList;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import lombok.extern.slf4j.Slf4j;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class ShoppingListReader {
