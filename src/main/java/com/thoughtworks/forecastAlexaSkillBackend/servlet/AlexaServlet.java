@@ -3,20 +3,12 @@ package com.thoughtworks.forecastAlexaSkillBackend.servlet;
 import com.amazon.ask.Skill;
 import com.amazon.ask.Skills;
 import com.amazon.ask.servlet.SkillServlet;
-import com.thoughtworks.forecastAlexaSkillBackend.config.AppConfig;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.CancelandStopIntentHandler;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.ErrorHandler;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.FallbackIntentHandler;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.GroceryListIntentHandler;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.HelloWorldIntentHandler;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.HelpIntentHandler;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.LaunchRequestHandler;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.MyExceptionHandler;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.SessionEndedRequestHandler;
-import com.thoughtworks.forecastAlexaSkillBackend.handlers.YesIntentHandler;
+import com.thoughtworks.forecastAlexaSkillBackend.customIntenthandlers.*;
+import com.thoughtworks.forecastAlexaSkillBackend.defaultIntentHandlers.*;
 import com.thoughtworks.forecastAlexaSkillBackend.interceptors.LogRequestInterceptor;
 import com.thoughtworks.forecastAlexaSkillBackend.interceptors.LogResponseInterceptor;
 import lombok.extern.slf4j.Slf4j;
+import com.thoughtworks.forecastAlexaSkillBackend.config.AppConfig;
 
 @Slf4j
 public class AlexaServlet extends SkillServlet {
@@ -29,14 +21,15 @@ public class AlexaServlet extends SkillServlet {
     log.info("Initializing AlexaServlet with Skill ID # " + appConfig.getSkillId());
     return Skills.standard()
         .addRequestHandlers(
-            new CancelandStopIntentHandler(),
-            new HelloWorldIntentHandler(),
+            new CancelAndStopIntentHandler(),
             new HelpIntentHandler(),
             new LaunchRequestHandler(),
             new SessionEndedRequestHandler(),
             new FallbackIntentHandler(),
             new GroceryListIntentHandler(),
+            new GroceryItemIntentHandler(),
             new YesIntentHandler(),
+            new NoIntentHandler(),
             new ErrorHandler())
         .addExceptionHandler(new MyExceptionHandler())
         .addRequestInterceptors(

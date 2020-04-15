@@ -3,6 +3,9 @@ package com.thoughtworks.forecastAlexaSkillBackend.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+import java.util.concurrent.atomic.DoubleAccumulator;
+
 @Getter
 @Setter
 public class ShoppingItem {
@@ -19,6 +22,14 @@ public class ShoppingItem {
     this.unit = unit;
     this.id = id;
     this.price = price;
+  }
+
+  public ShoppingItem(Map<String, String> constructParams){
+    this.name = constructParams.get("name");
+    this.quantity = Double.valueOf(constructParams.get("quantity"));
+    this.unit = constructParams.get("unit");
+    this.id = constructParams.get("id");
+    this.price = Double.valueOf(constructParams.get("price"));
   }
 
   private boolean isWhole(double value) {

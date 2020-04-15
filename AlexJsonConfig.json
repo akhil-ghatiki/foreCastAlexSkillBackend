@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "test skill",
+      "invocationName": "minions app",
       "modelConfiguration": {
         "fallbackIntentSensitivity": {
           "level": "LOW"
@@ -33,7 +33,20 @@
           "slots": [],
           "samples": [
             "Suggested items",
-            "Grocery list"
+            "Grocery list",
+            "get me my todo groceries list",
+            "give me suggestions for groceries shopping"
+          ]
+        },
+        {
+          "name": "grocery_item",
+          "slots": [],
+          "samples": [
+            "I want to order",
+            "I want to place an order",
+            "place order for groceries",
+            "tell me what to order",
+            "suggest me what i can order"
           ]
         },
         {
@@ -45,7 +58,21 @@
         },
         {
           "name": "AMAZON.YesIntent",
-          "samples": []
+          "samples": [
+            "yes",
+            "yes please",
+            "yeah",
+            "okay",
+            "sure"
+          ]
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": [
+            "no",
+            "nope",
+            "no thanks"
+          ]
         }
       ],
       "types": []
