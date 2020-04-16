@@ -11,7 +11,7 @@ import static com.amazon.ask.request.Predicates.intentName;
 public class PlaceOrderIntent implements RequestHandler {
     @Override
     public boolean canHandle(HandlerInput handlerInput) {
-            return handlerInput.matches(intentName("PlaceOrder"));
+            return handlerInput.matches(intentName("PlaceOrderIntent"));
     }
 
     @Override

@@ -29,7 +29,7 @@
           "samples": []
         },
         {
-          "name": "grocery_list",
+          "name": "GroceryListIntent",
           "slots": [],
           "samples": [
             "Suggested items",
@@ -39,7 +39,7 @@
           ]
         },
         {
-          "name": "grocery_item",
+          "name": "GroceryItemIntent",
           "slots": [],
           "samples": [
             "I want to order",
@@ -50,7 +50,7 @@
           ]
         },
         {
-          "name": "PlaceOrder",
+          "name": "PlaceOrderIntent",
           "slots": [],
           "samples": [
             "place order"
