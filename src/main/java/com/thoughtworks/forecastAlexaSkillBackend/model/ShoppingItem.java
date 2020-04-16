@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Map;
-import java.util.concurrent.atomic.DoubleAccumulator;
 
 @Getter
 @Setter
@@ -14,22 +13,22 @@ public class ShoppingItem {
   private double quantity;
   private String unit;
   private String id;
-  private double price;
+  private double unitPrice;
 
-  public ShoppingItem(String name, float quantity, String unit, String id, float price) {
+  public ShoppingItem(String name, float quantity, String unit, String id, float unitPrice) {
     this.name = name;
     this.quantity = quantity;
     this.unit = unit;
     this.id = id;
-    this.price = price;
+    this.unitPrice = unitPrice;
   }
 
-  public ShoppingItem(Map<String, String> constructParams){
-    this.name = constructParams.get("name");
-    this.quantity = Double.valueOf(constructParams.get("quantity"));
-    this.unit = constructParams.get("unit");
-    this.id = constructParams.get("id");
-    this.price = Double.valueOf(constructParams.get("price"));
+  public ShoppingItem(Map<String, Object> constructParams){
+    this.name = (String) constructParams.get("name");
+    this.quantity = (double) constructParams.get("quantity");
+    this.unit = (String) constructParams.get("unit");
+    this.id = (String) constructParams.get("id");
+    this.unitPrice = (double) constructParams.get("unitPrice");
   }
 
   private boolean isWhole(double value) {

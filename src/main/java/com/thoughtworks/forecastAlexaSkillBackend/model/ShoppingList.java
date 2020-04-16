@@ -14,7 +14,7 @@ public class ShoppingList extends ArrayList<ShoppingItem> {
     return result;
   }
 
-  public static ShoppingList BuildShoppingList(List<Map<String,String>> shoppingItems) {
+  public static ShoppingList BuildShoppingList(List<Map<String,Object>> shoppingItems) {
     ShoppingList shoppingList = new ShoppingList();
     for (int i=0 ; i< shoppingItems.size();i++) {
       shoppingList.add(new ShoppingItem(shoppingItems.get(i)));

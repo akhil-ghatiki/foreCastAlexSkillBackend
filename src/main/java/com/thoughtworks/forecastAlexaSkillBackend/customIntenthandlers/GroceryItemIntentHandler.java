@@ -25,7 +25,7 @@ public class GroceryItemIntentHandler implements RequestHandler {
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
         sessionAttributes.put("currentStep", Step.GROCERY_ITEM );
         ShoppingList suggestedShoppingList = sessionAttributes.get(Constants.GROCERIES_LIST) != null
-                ? ShoppingList.BuildShoppingList((List<Map<String, String>>) sessionAttributes.get(Constants.GROCERIES_LIST))
+                ? ShoppingList.BuildShoppingList((List<Map<String, Object>>) sessionAttributes.get(Constants.GROCERIES_LIST))
                 : null;
 
         //Entry into Grocery Items Loop, set the index to 0
@@ -35,22 +35,20 @@ public class GroceryItemIntentHandler implements RequestHandler {
         int currentItemIndex = (int) sessionAttributes.get("currentShoppingItem");
 
         //All the items are asked for ordering
-        if ( suggestedShoppingList.size() == currentItemIndex+1 ) {
+        if ( suggestedShoppingList.size() == currentItemIndex ) {
             sessionAttributes.remove("currentShoppingItem");
-            handleConfirmPlaceOrderItem(handlerInput);
+            return handleConfirmPlaceOrderItem(handlerInput);
         }
 
-        speechText.concat(suggestedShoppingList.get(currentItemIndex).getName() + " ?");
+        speechText = "Would you like to order "
+                .concat(suggestedShoppingList.get(currentItemIndex).toString() + " ?");
         //TODO Add to Cart
 
-        //if more items in the grocery list
-        if ( suggestedShoppingList.size() > currentItemIndex+1 )
-            sessionAttributes.put("currentShoppingItem", currentItemIndex+1 );
-
+        sessionAttributes.put("currentShoppingItem", currentItemIndex+1 );
 
         return handlerInput.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("HelloWorld", speechText)
+                .withSimpleCard("Order?", speechText)
                 .withReprompt(speechText)
                 .build();
     }
