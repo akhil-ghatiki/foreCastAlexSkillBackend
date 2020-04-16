@@ -1,28 +1,28 @@
 [
   {
     "name":"apple",
-    "price":"100",
+    "unitPrice":"100",
     "quantity":"0.5",
     "unit":"kg",
     "id":"123-345"
   },
   {
      "name":"orange",
-    "price":"60",
+    "unitPrice":"60",
     "quantity":"0.8",
     "unit":"kg",
     "id":"231-345"
   },
   {
     "name":"milk",
-    "price":"60",
+    "unitPrice":"60",
     "quantity":"2",
     "unit":"liter",
     "id":"345-567"
   },
   {
      "name":"eggs",
-    "price":"60",
+    "unitPrice":"60",
     "quantity":"10",
     "unit":"",
     "id":"231-745"
