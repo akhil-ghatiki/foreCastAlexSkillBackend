@@ -22,7 +22,6 @@ public class GroceryItemIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
-        String speechText = "Would you like to order ";
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
         sessionAttributes.put(Step.CURRENT_STEP, Step.GROCERY_ITEM );
         ShoppingList suggestedShoppingList = sessionAttributes.get(Constants.GROCERY_LIST) != null
@@ -38,10 +37,10 @@ public class GroceryItemIntentHandler implements RequestHandler {
         //All the items are asked for ordering
         if ( suggestedShoppingList.size() == currentItemIndex ) {
             sessionAttributes.remove("currentShoppingItem");
-            return handleConfirmPlaceOrderItem(handlerInput);
+            return handleConfirmCheckoutItem(handlerInput);
         }
-
-        speechText = "Would you like to order "
+        //TODO if the current item in the list is already in AddToCart do curentItemIndex++
+        String speechText = "Would you like to order "
                 .concat(suggestedShoppingList.get(currentItemIndex).toString() + " ?");
         //TODO Add to Cart
 
@@ -54,7 +53,7 @@ public class GroceryItemIntentHandler implements RequestHandler {
                 .build();
     }
 
-    private Optional<Response> handleConfirmPlaceOrderItem(HandlerInput handlerInput) {
-        return new ConfirmPlaceOrderIntent().handle(handlerInput);
+    private Optional<Response> handleConfirmCheckoutItem(HandlerInput handlerInput) {
+        return new ConfirmCheckoutIntent().handle(handlerInput);
     }
 }
