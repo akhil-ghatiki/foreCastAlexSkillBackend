@@ -35,25 +35,40 @@
             "Suggested items",
             "Grocery list",
             "get me my todo groceries list",
-            "give me suggestions for groceries shopping"
-          ]
-        },
-        {
-          "name": "GroceryItemIntent",
-          "slots": [],
-          "samples": [
-            "I want to order",
-            "I want to place an order",
-            "place order for groceries",
+            "give me suggestions for groceries shopping",
             "tell me what to order",
             "suggest me what i can order"
           ]
         },
         {
-          "name": "PlaceOrderIntent",
-          "slots": [],
+          "name": "OrderIntent",
+          "slots": [
+            {
+              "name": "orderNameSlot",
+              "type": "AMAZON.SearchQuery"
+            },
+            {
+              "name": "orderQuantitySlot",
+              "type": "AMAZON.SearchQuery",
+              "samples": [
+                "{orderQuantitySlot}"
+              ]
+            },
+            {
+              "name": "confirmCheckoutSlot",
+              "type": "confirmCheckout",
+              "samples": [
+                "{confirmCheckoutSlot} please",
+                "{confirmCheckoutSlot}"
+              ]
+            }
+          ],
           "samples": [
-            "place order"
+            "place order for  {orderNameSlot}",
+            "I want to place an order for  {orderNameSlot}",
+            "I want to order  {orderNameSlot}",
+            "I want to order",
+            "place an order"
           ]
         },
         {
@@ -73,9 +88,141 @@
             "nope",
             "no thanks"
           ]
+        },
+        {
+          "name": "CheckOutIntent",
+          "slots": [],
+          "samples": [
+            "confirm check out",
+            "confirm checkout"
+          ]
+        },
+        {
+          "name": "GroceryItemIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "ConfirmCheckoutInent",
+          "slots": [],
+          "samples": [
+            "checkout",
+            "check out",
+            "show cart",
+            "show cart list"
+          ]
         }
       ],
-      "types": []
-    }
+      "types": [
+        {
+          "name": "confirmCheckout",
+          "values": [
+            {
+              "name": {
+                "value": "no",
+                "synonyms": [
+                  "nope"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "yes",
+                "synonyms": [
+                  "yeah",
+                  "fine"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "OrderIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "orderNameSlot",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.950108019854.1089299184560"
+              }
+            },
+            {
+              "name": "orderQuantitySlot",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.950108019854.1525214826118"
+              }
+            },
+            {
+              "name": "confirmCheckoutSlot",
+              "type": "confirmCheckout",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.76298314380.398035695446"
+              }
+            }
+          ]
+        },
+        {
+          "name": "GroceryItemIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": []
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.950108019854.1525214826118",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "quantity?"
+          },
+          {
+            "type": "PlainText",
+            "value": "what quantity?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.950108019854.1089299184560",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "which product"
+          },
+          {
+            "type": "PlainText",
+            "value": "which item?"
+          },
+          {
+            "type": "PlainText",
+            "value": "which one?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.76298314380.398035695446",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Would you like to checkout?"
+          }
+        ]
+      }
+    ]
   }
 }
