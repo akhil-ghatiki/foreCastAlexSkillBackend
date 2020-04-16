@@ -20,15 +20,15 @@ public class YesIntentHandler implements RequestHandler {
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
     Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-    if(sessionAttributes.get("currentStep") != null && sessionAttributes.get("currentStep").equals(Step.CONFIRM_ORDER)){
+    if(sessionAttributes.get(Step.CURRENT_STEP) != null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.CONFIRM_ORDER)){
         return handlePlaceOrder(handlerInput);
     }
-    if(sessionAttributes.get("currentStep") != null
-        && (sessionAttributes.get("currentStep").equals(Step.GROCERY_ITEM)
-            || sessionAttributes.get("currentStep").equals(Step.GROCERY_LIST))){
+    if(sessionAttributes.get(Step.CURRENT_STEP) != null
+        && (sessionAttributes.get(Step.CURRENT_STEP).equals(Step.GROCERY_ITEM)
+            || sessionAttributes.get(Step.CURRENT_STEP).equals(Step.GROCERY_LIST))){
         return handleGroceryItemRequest(handlerInput);
     }
-    if(sessionAttributes.get("currentStep") != null && sessionAttributes.get("currentStep").equals(Step.TODO_LIST)){
+    if(sessionAttributes.get(Step.CURRENT_STEP) != null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.TODO_LIST)){
         return handleGroceryListRequest(handlerInput);
     }
     //TODO: yes can be called for various questions handle accordingly

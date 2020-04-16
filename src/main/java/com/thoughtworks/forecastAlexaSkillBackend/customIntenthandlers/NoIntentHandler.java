@@ -20,18 +20,18 @@ public class NoIntentHandler implements RequestHandler {
     public Optional<Response> handle(HandlerInput handlerInput) {
         String speechText = "Alright,";
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-        if(sessionAttributes.get("currentStep") !=null && sessionAttributes.get("currentStep").equals(Step.GROCERY_ITEM)){
+        if(sessionAttributes.get(Step.CURRENT_STEP) !=null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.GROCERY_ITEM)){
             return handleGroceryItem(handlerInput);
         }
 
-        if(sessionAttributes.get("currentStep") !=null && sessionAttributes.get("currentStep").equals(Step.CONFIRM_ORDER)){
-            speechText.concat(" Clearing the Cart");
+        if(sessionAttributes.get(Step.CURRENT_STEP) !=null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.CONFIRM_ORDER)){
+            speechText = speechText.concat(" Clearing the Cart");
             //TODO Clear Add to Cart List
         }
-        speechText.concat(", Have a good day");
+        speechText = speechText.concat(", Have a good day");
        return handlerInput.getResponseBuilder()
                .withSpeech(speechText)
-               .withSimpleCard("Okay", "Alright")
+               .withSimpleCard("Okay", "Have a good day")
                .build();
     }
 

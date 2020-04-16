@@ -1,8 +1,9 @@
 package com.thoughtworks.forecastAlexaSkillBackend.domain;
 
 public class Step {
-  public static String GROCERY_LIST = "GROCERY_LIST";
-  public static String TODO_LIST = "TODO_LIST";
-  public static String GROCERY_ITEM = "GROCERY_ITEM";
-  public static String CONFIRM_ORDER = "CONFIRM_ORDER";
+   public static String CURRENT_STEP = "CURRENT_STEP";
+   public static String GROCERY_LIST = "GROCERY_LIST_INTENT";
+   public static String TODO_LIST = "TODO_LIST_INTENT";
+   public static String GROCERY_ITEM = "GROCERY_ITEM_INTENT";
+   public static String CONFIRM_ORDER = "CONFIRM_ORDER_INTENT";
 }

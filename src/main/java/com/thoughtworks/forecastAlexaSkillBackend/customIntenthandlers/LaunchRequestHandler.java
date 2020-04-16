@@ -25,7 +25,7 @@ public class LaunchRequestHandler implements RequestHandler {
     String speechText = "Hey Minions, In your todo list for today we have ordering of groceries as one of the thing to do. Would you like to place an order?";
 
     Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-    sessionAttributes.put("currentStep", Step.TODO_LIST );
+    sessionAttributes.put(Step.CURRENT_STEP, Step.TODO_LIST );
 
     return handlerInput.getResponseBuilder()
         .withSpeech(speechText)

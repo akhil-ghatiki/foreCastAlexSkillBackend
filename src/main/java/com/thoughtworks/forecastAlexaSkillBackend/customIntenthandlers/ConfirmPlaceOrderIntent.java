@@ -19,7 +19,7 @@ public class ConfirmPlaceOrderIntent implements RequestHandler {
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
     Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-    sessionAttributes.put("currentStep", Step.CONFIRM_ORDER );
+    sessionAttributes.put(Step.CURRENT_STEP, Step.CONFIRM_ORDER );
     //TODO GET THE ADD TO CART list
     //TODO if no items in add to cart list, return to final exit confirmation Intent
     //TODO Call Order Placed Service with above list to get the Quotation of TOTAL AMOUNT

@@ -4,6 +4,7 @@ import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
 import com.thoughtworks.forecastAlexaSkillBackend.config.Constants;
+import com.thoughtworks.forecastAlexaSkillBackend.domain.ShoppingListReader;
 import com.thoughtworks.forecastAlexaSkillBackend.domain.Step;
 import com.thoughtworks.forecastAlexaSkillBackend.model.ShoppingList;
 
@@ -16,17 +17,17 @@ import static com.amazon.ask.request.Predicates.intentName;
 public class GroceryItemIntentHandler implements RequestHandler {
     @Override
     public boolean canHandle(HandlerInput handlerInput) {
-        return handlerInput.matches(intentName("grocery_item"));
+        return handlerInput.matches(intentName("GroceryItemIntent"));
     }
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         String speechText = "Would you like to order ";
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-        sessionAttributes.put("currentStep", Step.GROCERY_ITEM );
-        ShoppingList suggestedShoppingList = sessionAttributes.get(Constants.GROCERIES_LIST) != null
-                ? ShoppingList.BuildShoppingList((List<Map<String, Object>>) sessionAttributes.get(Constants.GROCERIES_LIST))
-                : null;
+        sessionAttributes.put(Step.CURRENT_STEP, Step.GROCERY_ITEM );
+        ShoppingList suggestedShoppingList = sessionAttributes.get(Constants.GROCERY_LIST) != null
+                ? ShoppingList.BuildShoppingList((List<Map<String, Object>>) sessionAttributes.get(Constants.GROCERY_LIST))
+                : new ShoppingListReader().suggestedList();
 
         //Entry into Grocery Items Loop, set the index to 0
         if ( sessionAttributes.get("currentShoppingItem") == null )
