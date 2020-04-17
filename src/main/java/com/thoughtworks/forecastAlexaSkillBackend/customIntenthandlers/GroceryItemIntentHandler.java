@@ -6,7 +6,10 @@ import com.amazon.ask.model.Response;
 import com.thoughtworks.forecastAlexaSkillBackend.config.Constants;
 import com.thoughtworks.forecastAlexaSkillBackend.domain.ShoppingListReader;
 import com.thoughtworks.forecastAlexaSkillBackend.domain.Step;
+import com.thoughtworks.forecastAlexaSkillBackend.model.ShoppingItem;
 import com.thoughtworks.forecastAlexaSkillBackend.model.ShoppingList;
+import com.thoughtworks.forecastAlexaSkillBackend.service.CartService;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +17,10 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
+@Slf4j
 public class GroceryItemIntentHandler implements RequestHandler {
+    CartService cartService = new CartService();
+
     @Override
     public boolean canHandle(HandlerInput handlerInput) {
         return handlerInput.matches(intentName("GroceryItemIntent"));
@@ -22,6 +28,8 @@ public class GroceryItemIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
+        log.info("Entering");
+        String userEmail = "minions@email.com";//TODO Get UserProfile
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
         sessionAttributes.put(Step.CURRENT_STEP, Step.GROCERY_ITEM );
         ShoppingList suggestedShoppingList = sessionAttributes.get(Constants.GROCERY_LIST) != null
@@ -39,13 +47,16 @@ public class GroceryItemIntentHandler implements RequestHandler {
             sessionAttributes.remove("currentShoppingItem");
             return handleConfirmCheckoutItem(handlerInput);
         }
-        //TODO if the current item in the list is already in AddToCart do curentItemIndex++
-        String speechText = "Would you like to order "
-                .concat(suggestedShoppingList.get(currentItemIndex).toString() + " ?");
-        //TODO Add to Cart
-
+        //TODO if the current item in the list is already in AddToCart move to next suggestion
+        ShoppingItem suggestedItem = suggestedShoppingList.get(currentItemIndex);
         sessionAttributes.put("currentShoppingItem", currentItemIndex+1 );
-
+        if (cartService.alreadyInCart(userEmail, suggestedItem)) {
+            return handle(handlerInput);
+        }
+        //TODO Add to Cart
+        cartService.addToCart(userEmail, suggestedItem);
+        String speechText = "Would you like to order "
+                .concat(suggestedItem.toString() + " ?");
         return handlerInput.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard("Order?", speechText)

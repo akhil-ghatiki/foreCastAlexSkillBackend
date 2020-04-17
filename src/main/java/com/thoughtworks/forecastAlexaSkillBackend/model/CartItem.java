@@ -8,11 +8,11 @@ import lombok.Setter;
 @Setter
 public class CartItem extends ShoppingItem {
     private double price;
-    public CartItem(String name, float quantity, String unit, String id, double unitPrice, double price) {
+    public CartItem(String name, double quantity, String unit, String id, double unitPrice, double price) {
         super(name, quantity, unit, id, unitPrice);
         this.price = price;
     }
-    public CartItem(String name, float quantity, String unit, String id, double unitPrice) {
+    public CartItem(String name, double quantity, String unit, String id, double unitPrice) {
         super(name, quantity, unit, id, unitPrice);
         this.price = quantity * unitPrice;
     }

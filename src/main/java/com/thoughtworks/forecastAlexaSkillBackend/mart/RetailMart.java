@@ -24,7 +24,14 @@ public class RetailMart {
   }
 
   public boolean addToCart(String userId, CartItem item) {
-    return carts.get(userId).add(item);
+    List<CartItem> cartItems;
+    if (carts.containsKey(userId)) {
+      cartItems = carts.get(userId);
+    } else {
+      cartItems = new ArrayList<>();
+      carts.put(userId, cartItems);
+    }
+    return cartItems.add(item);
   }
 
   public OrderInvoice orderInvoice(String userId) {
@@ -40,6 +47,7 @@ public class RetailMart {
             .company(getCompany())
             .build();
     ordersInvoiceList.put(userEmail, orderInvoice);
+    carts.remove(userEmail);
 
     return orderInvoice;
   }
@@ -59,7 +67,10 @@ public class RetailMart {
   }
 
   public OrderInvoice getCartFor(String userEmail) {
-    return OrderInvoice.builder().orderLineItems(carts.get(userEmail)).build();
+    List<CartItem> cartItems = carts.get(userEmail);
+    if (cartItems == null)
+      return null;
+    return OrderInvoice.builder().orderLineItems(cartItems).build();
   }
 
   public boolean clearCartFor(String userEmail) {

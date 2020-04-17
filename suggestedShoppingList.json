@@ -24,7 +24,7 @@
     "name":"eggs",
     "unitPrice":"60",
     "quantity":"10",
-    "unit":"no",
+    "unit":"number",
     "id":"231-745"
   }
 
