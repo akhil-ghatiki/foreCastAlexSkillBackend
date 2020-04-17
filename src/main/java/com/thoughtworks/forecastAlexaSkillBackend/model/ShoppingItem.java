@@ -15,7 +15,7 @@ public class ShoppingItem {
   private String id;
   private double unitPrice;
 
-  public ShoppingItem(String name, float quantity, String unit, String id, float unitPrice) {
+  public ShoppingItem(String name, double quantity, String unit, String id, double unitPrice) {
     this.name = name;
     this.quantity = quantity;
     this.unit = unit;
