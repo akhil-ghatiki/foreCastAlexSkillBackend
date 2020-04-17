@@ -7,11 +7,14 @@ import com.thoughtworks.forecastAlexaSkillBackend.config.Constants;
 import com.thoughtworks.forecastAlexaSkillBackend.domain.ShoppingListReader;
 import com.thoughtworks.forecastAlexaSkillBackend.domain.Step;
 import com.thoughtworks.forecastAlexaSkillBackend.model.ShoppingList;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Map;
 import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
+@Slf4j
 public class GroceryListIntentHandler implements RequestHandler {
     @Override
     public boolean canHandle(HandlerInput handlerInput) {
@@ -20,6 +23,7 @@ public class GroceryListIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
+        log.info("Entering");
         ShoppingListReader shoppingListReader = new ShoppingListReader();
         ShoppingList suggestedShoppingList = shoppingListReader.suggestedList();
         String speechText= "Items that are due in ordering are:";

@@ -2,6 +2,8 @@ package com.thoughtworks.forecastAlexaSkillBackend.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,4 +37,20 @@ public class OrderInvoice {
     }
   }
 
+  @Override
+  public String toString() {
+    String ordersString = orderLineItems.stream().map(item -> item.toString())
+      .collect(Collectors.joining(", "));
+    return String.format("Order Placed for %s and Total price is Rs.%s", ordersString, totalPrice);
+  }
+
+  public String ordersText() {
+    String orderNames = orderLineItems.stream().map(item -> item.toString()).collect(Collectors.joining(", "));
+    return orderNames;
+  }
+
+  public String orderNames() {
+    String orderNames = orderLineItems.stream().map(item -> item.getName()).collect(Collectors.joining(", "));
+    return orderNames;
+  }
 }

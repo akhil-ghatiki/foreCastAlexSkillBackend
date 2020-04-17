@@ -9,10 +9,12 @@ import com.thoughtworks.forecastAlexaSkillBackend.customIntenthandlers.CheckoutI
 import com.thoughtworks.forecastAlexaSkillBackend.customIntenthandlers.GroceryItemIntentHandler;
 import com.thoughtworks.forecastAlexaSkillBackend.customIntenthandlers.GroceryListIntentHandler;
 import com.thoughtworks.forecastAlexaSkillBackend.domain.Step;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public class YesIntentHandler implements RequestHandler {
 
   @Override
@@ -22,6 +24,7 @@ public class YesIntentHandler implements RequestHandler {
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
+    log.info("Entering");
     Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
     if(sessionAttributes.get(Step.CURRENT_STEP) != null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.CONFIRM_CHECKOUT)){
         return handleCheckout(handlerInput);

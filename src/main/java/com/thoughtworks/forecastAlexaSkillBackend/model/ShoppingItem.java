@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -23,11 +24,19 @@ public class ShoppingItem {
     this.unitPrice = unitPrice;
   }
 
+  public ShoppingItem(String name, double quantity, String unit, double unitPrice) {
+    this.name = name;
+    this.quantity = quantity;
+    this.unit = unit;
+    this.id = UUID.randomUUID().toString();
+    this.unitPrice = unitPrice;
+  }
+
   public ShoppingItem(Map<String, Object> constructParams){
     this.name = (String) constructParams.get("name");
     this.quantity = (double) constructParams.get("quantity");
     this.unit = (String) constructParams.get("unit");
-    this.id = (String) constructParams.get("id");
+    this.id = (String) (constructParams.get("id") != null ? constructParams.get("id") : UUID.randomUUID());
     this.unitPrice = (double) constructParams.get("unitPrice");
   }
 
