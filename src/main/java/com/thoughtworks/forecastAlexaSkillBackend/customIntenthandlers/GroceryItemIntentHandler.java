@@ -37,24 +37,27 @@ public class GroceryItemIntentHandler implements RequestHandler {
                 : new ShoppingListReader().suggestedList();
 
         //Entry into Grocery Items Loop, set the index to 0
-        if ( sessionAttributes.get("currentShoppingItem") == null )
-            sessionAttributes.put("currentShoppingItem", 0 );
+        if ( sessionAttributes.get(Step.CURRENT_INDEX) == null )
+            sessionAttributes.put(Step.CURRENT_INDEX, 0 );
 
-        int currentItemIndex = (int) sessionAttributes.get("currentShoppingItem");
+        int currentItemIndex = (int) sessionAttributes.get(Step.CURRENT_INDEX);
 
         //All the items are asked for ordering
         if ( suggestedShoppingList.size() == currentItemIndex ) {
-            sessionAttributes.remove("currentShoppingItem");
+            sessionAttributes.remove(Step.CURRENT_INDEX);
             return handleConfirmCheckoutItem(handlerInput);
         }
-        //TODO if the current item in the list is already in AddToCart move to next suggestion
         ShoppingItem suggestedItem = suggestedShoppingList.get(currentItemIndex);
-        sessionAttributes.put("currentShoppingItem", currentItemIndex+1 );
-        if (cartService.alreadyInCart(userEmail, suggestedItem)) {
-            return handle(handlerInput);
+
+        if ( currentItemIndex != 0 ) {
+            //TODO if the current item in the list is already in AddToCart move to next suggestion
+            if (cartService.alreadyInCart(userEmail, suggestedItem)) {
+                return handle(handlerInput);
+            }
+            //TODO Add to Cart
+            cartService.addToCart(userEmail, suggestedItem);
         }
-        //TODO Add to Cart
-        cartService.addToCart(userEmail, suggestedItem);
+        sessionAttributes.put(Step.CURRENT_INDEX, currentItemIndex+1 );
         String speechText = "Would you like to order "
                 .concat(suggestedItem.toString() + " ?");
         return handlerInput.getResponseBuilder()
