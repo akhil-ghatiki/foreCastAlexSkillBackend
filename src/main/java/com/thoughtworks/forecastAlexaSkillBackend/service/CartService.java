@@ -23,10 +23,12 @@ public class CartService {
   }
 
   public boolean alreadyInCart(String userEmail, ShoppingItem item) {
-    long noOfMatchedCartItems = RetailMart.getInstance()
-            .getCartFor(userEmail).getOrderLineItems()
+    OrderInvoice cartItems = RetailMart.getInstance()
+            .getCartFor(userEmail);
+    long noOfMatchedCartItems = cartItems != null ? cartItems.getOrderLineItems()
             .stream().filter(matchProductName(item.getName()))
-            .count();
+            .count()
+            : 0;
     return noOfMatchedCartItems > 0;
   }
 
