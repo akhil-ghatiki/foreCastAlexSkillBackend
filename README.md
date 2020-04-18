@@ -7,4 +7,4 @@ http://localhost:8080/retailMart/minions@email.com/invoice returns the json with
 ## Personalization
 
 * Go to build permissions on alexa developer console and check Customer Name -> Full Name, Customer Email Address
-* Provide these permissions to the App by going to https://alexa.amazon.in/ -> Settings -> Manage Settings
+* Provide these permissions to the App by going Web Alexa or Mobile App -> Your Skills -> Open our Skill -> Manage Settings
