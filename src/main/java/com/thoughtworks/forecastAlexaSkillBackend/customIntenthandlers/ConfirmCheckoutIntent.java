@@ -27,7 +27,8 @@ public class ConfirmCheckoutIntent implements RequestHandler {
     log.info("Entering");
     Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
     sessionAttributes.put(Step.CURRENT_STEP, Step.CONFIRM_CHECKOUT);
-    String userEmail = "minions@email.com";//TODO Get UserProfile
+    String profileEmail = handlerInput.getServiceClientFactory().getUpsService().getProfileEmail();
+    String userEmail = profileEmail;
     OrderInvoice orderPreview = cartService.getCart(userEmail);
     //TODO GET THE ADD TO CART list
     //TODO if no items in add to cart list, return to final exit confirmation Intent

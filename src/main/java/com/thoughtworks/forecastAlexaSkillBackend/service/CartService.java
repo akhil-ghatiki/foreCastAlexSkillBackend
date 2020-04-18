@@ -32,8 +32,8 @@ public class CartService {
     return noOfMatchedCartItems > 0;
   }
 
-  public OrderInvoice checkoutForUser(String userIdEmail) {
-    return RetailMart.getInstance().checkout(userIdEmail);
+  public OrderInvoice checkoutForUser(String userIdEmail, String userName) {
+    return RetailMart.getInstance().checkout(userIdEmail, userName);
   }
 
   public static Predicate<CartItem> matchProductName(String name) {

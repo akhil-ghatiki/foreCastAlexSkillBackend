@@ -38,12 +38,12 @@ public class RetailMart {
     return ordersInvoiceList.get(userId);
   }
 
-  public OrderInvoice checkout(String userEmail) {
+  public OrderInvoice checkout(String userEmail, String userName) {
     OrderInvoice orderInvoice = OrderInvoice.builder()
             .orderLineItems(carts.get(userEmail))
             .id(UUID.randomUUID().toString())
             .orderDate(new Date())
-            .user(getUser(userEmail))
+            .user(getUser(userEmail, userName))
             .company(getCompany())
             .build();
     ordersInvoiceList.put(userEmail, orderInvoice);
@@ -52,9 +52,9 @@ public class RetailMart {
     return orderInvoice;
   }
 
-  private User getUser(String userEmail) {
+  private User getUser(String userEmail, String userName) {
     return User.builder()
-            .username(userEmail.split("@")[0])
+            .username(userName)
             .userEmail(userEmail)
             .build();
   }

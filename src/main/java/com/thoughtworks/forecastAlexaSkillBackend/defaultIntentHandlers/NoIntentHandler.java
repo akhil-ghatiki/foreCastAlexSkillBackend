@@ -25,7 +25,8 @@ public class NoIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         log.info("Entering");
-        String userEmail = "minions@email.com";//TODO Get UserProfile
+        String profileEmail = handlerInput.getServiceClientFactory().getUpsService().getProfileEmail();
+        String userEmail = profileEmail;
         String speechText = "Alright,";
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
         if(sessionAttributes.get(Step.CURRENT_STEP) !=null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.GROCERY_ITEM)){
