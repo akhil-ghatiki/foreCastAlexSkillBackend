@@ -3,6 +3,7 @@ package com.thoughtworks.forecastAlexaSkillBackend.customIntenthandlers;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
+import com.amazon.ask.model.services.ups.UpsServiceClient;
 import com.thoughtworks.forecastAlexaSkillBackend.model.OrderInvoice;
 import com.thoughtworks.forecastAlexaSkillBackend.service.CartService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,11 @@ public class CheckoutIntent implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         log.info("Entering");
-        String userEmail = "minions@email.com";//TODO Get UserProfile
-        OrderInvoice orderInvoice = cartService.checkoutForUser(userEmail);
+        UpsServiceClient upsService = handlerInput.getServiceClientFactory().getUpsService();
+        String profileEmail = upsService.getProfileEmail();
+        String userEmail = profileEmail;
+        String userName = upsService.getProfileName();
+        OrderInvoice orderInvoice = cartService.checkoutForUser(userEmail, userName);
         String speechText = orderInvoice.toString();
         String cardText = orderInvoice.toString();
         return handlerInput.getResponseBuilder()

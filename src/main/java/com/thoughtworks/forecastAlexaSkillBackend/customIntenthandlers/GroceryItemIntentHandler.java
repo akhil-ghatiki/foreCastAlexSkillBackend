@@ -29,7 +29,8 @@ public class GroceryItemIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         log.info("Entering");
-        String userEmail = "minions@email.com";//TODO Get UserProfile
+        String profileEmail = handlerInput.getServiceClientFactory().getUpsService().getProfileEmail();
+        String userEmail = profileEmail;
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
         sessionAttributes.put(Step.CURRENT_STEP, Step.GROCERY_ITEM );
         ShoppingList suggestedShoppingList = sessionAttributes.get(Constants.GROCERY_LIST) != null

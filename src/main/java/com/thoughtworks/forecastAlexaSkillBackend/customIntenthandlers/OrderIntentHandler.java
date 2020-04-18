@@ -31,7 +31,8 @@ public class OrderIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         log.info("Entering");
-        String userEmail = "minions@email.com";//TODO Get UserProfile
+        String profileEmail = handlerInput.getServiceClientFactory().getUpsService().getProfileEmail();
+        String userEmail = profileEmail;
         RequestHelper requestHelper = RequestHelper.forHandlerInput(handlerInput);
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
         sessionAttributes.put(Step.CURRENT_STEP, Step.GROCERY_ITEM );

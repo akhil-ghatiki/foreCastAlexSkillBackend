@@ -20,9 +20,10 @@ public class LaunchRequestHandler implements RequestHandler {
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
-
     //process the file, get count and kgs variable and into into this string
-    String speechText = "Hey Minions, In your todo list for today we have ordering of groceries as one of the thing to do. Would you like to place an order?";
+    String profileName = handlerInput.getServiceClientFactory().getUpsService().getProfileName();
+    String speechText = String.format("Hey %s, In your todo list for today we have ordering of " +
+            "groceries as one of the thing to do. Would you like to place an order?", profileName);
 
     Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
     sessionAttributes.put(Step.CURRENT_STEP, Step.TODO_LIST );
