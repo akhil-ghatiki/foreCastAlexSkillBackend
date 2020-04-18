@@ -26,16 +26,17 @@ public class YesIntentHandler implements RequestHandler {
   public Optional<Response> handle(HandlerInput handlerInput) {
     log.info("Entering");
     Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-    if(sessionAttributes.get(Step.CURRENT_STEP) != null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.CONFIRM_CHECKOUT)){
-        return handleCheckout(handlerInput);
+    if(sessionAttributes.get(Step.PREVIOUS_STEP) != null && sessionAttributes.get(Step.PREVIOUS_STEP).equals(Step.CONFIRM_CHECKOUT)){
+      return handleCheckout(handlerInput);
     }
-    if(sessionAttributes.get(Step.CURRENT_STEP) != null
-        && (sessionAttributes.get(Step.CURRENT_STEP).equals(Step.GROCERY_ITEM)
-            || sessionAttributes.get(Step.CURRENT_STEP).equals(Step.GROCERY_LIST))){
-        return handleGroceryItemRequest(handlerInput);
+    if(sessionAttributes.get(Step.PREVIOUS_STEP) != null
+            && (sessionAttributes.get(Step.PREVIOUS_STEP).equals(Step.GROCERY_ITEM)
+            || sessionAttributes.get(Step.PREVIOUS_STEP).equals(Step.GROCERY_LIST))){
+      sessionAttributes.put(Step.PREVIOUS_STEP, Step.YES_INTENT );
+      return handleGroceryItemRequest(handlerInput);
     }
-    if(sessionAttributes.get(Step.CURRENT_STEP) != null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.TODO_LIST)){
-        return handleGroceryListRequest(handlerInput);
+    if(sessionAttributes.get(Step.PREVIOUS_STEP) != null && sessionAttributes.get(Step.PREVIOUS_STEP).equals(Step.TODO_LIST)){
+      return handleGroceryListRequest(handlerInput);
     }
     //TODO: yes can be called for various questions handle accordingly
    return null;

@@ -1,31 +1,30 @@
 [
   {
-    "name":"apple",
-    "unitPrice":"100",
-    "quantity":"0.5",
-    "unit":"kg",
+    "name":"Maggie",
+    "unitPrice":"10",
+    "quantity":"5",
+    "unit":"packs",
     "id":"123-345"
   },
   {
-    "name":"orange",
-    "unitPrice":"60",
-    "quantity":"0.8",
-    "unit":"kg",
+    "name":"Haldiram Mixture",
+    "unitPrice":"0.4",
+    "quantity":"250",
+    "unit":"gms",
     "id":"231-345"
   },
   {
-    "name":"milk",
-    "unitPrice":"60",
-    "quantity":"2",
-    "unit":"liter",
+    "name":"Strawberry Wafers",
+    "unitPrice":"10",
+    "quantity":"10",
+    "unit":"packs",
     "id":"345-567"
   },
   {
-    "name":"eggs",
-    "unitPrice":"60",
-    "quantity":"10",
-    "unit":"number",
+    "name":"Fatafat",
+    "unitPrice":"2",
+    "quantity":"20",
+    "unit":"packs",
     "id":"231-745"
   }
-
 ]

@@ -22,11 +22,12 @@ public class LaunchRequestHandler implements RequestHandler {
   public Optional<Response> handle(HandlerInput handlerInput) {
     //process the file, get count and kgs variable and into into this string
     String profileName = handlerInput.getServiceClientFactory().getUpsService().getProfileName();
-    String speechText = String.format("Hey %s, In your todo list for today we have ordering of " +
-            "groceries as one of the thing to do. Would you like to place an order?", profileName);
+//    String speechText = String.format("Hey %s, In your todo list for today we have ordering of " +
+//            "groceries as one of the thing to do. Would you like to place an order?", profileName);
+    String speechText = String.format("Hey %s, Do you want to go thru the list of groceries for this week? ", profileName);
 
     Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-    sessionAttributes.put(Step.CURRENT_STEP, Step.TODO_LIST );
+    sessionAttributes.put(Step.PREVIOUS_STEP, Step.TODO_LIST );
 
     return handlerInput.getResponseBuilder()
         .withSpeech(speechText)

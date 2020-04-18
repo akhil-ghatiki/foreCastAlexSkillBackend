@@ -4,9 +4,11 @@ import com.thoughtworks.forecastAlexaSkillBackend.model.OrderInvoice;
 import com.thoughtworks.forecastAlexaSkillBackend.model.CartItem;
 import com.thoughtworks.forecastAlexaSkillBackend.model.Company;
 import com.thoughtworks.forecastAlexaSkillBackend.model.User;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
+@Slf4j
 public class RetailMart {
 
   private static RetailMart retailMart = null;
@@ -25,12 +27,12 @@ public class RetailMart {
 
   public boolean addToCart(String userId, CartItem item) {
     List<CartItem> cartItems;
-    if (carts.containsKey(userId)) {
-      cartItems = carts.get(userId);
-    } else {
+    if (!carts.containsKey(userId)) {
       cartItems = new ArrayList<>();
       carts.put(userId, cartItems);
     }
+    cartItems = carts.get(userId);
+    log.info(item.getName() + "is added to" + userId + "'s cart");
     return cartItems.add(item);
   }
 
@@ -61,8 +63,8 @@ public class RetailMart {
 
   private Company getCompany() {
     return Company.builder()
-            .companyName("RetailMart")
-            .companyEmail("contactus@retailmart.com")
+            .companyName("Grocery Mart")
+            .companyEmail("contactus@grocerymart.com")
             .build();
   }
 

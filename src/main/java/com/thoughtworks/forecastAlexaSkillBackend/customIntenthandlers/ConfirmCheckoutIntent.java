@@ -26,7 +26,7 @@ public class ConfirmCheckoutIntent implements RequestHandler {
   public Optional<Response> handle(HandlerInput handlerInput) {
     log.info("Entering");
     Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-    sessionAttributes.put(Step.CURRENT_STEP, Step.CONFIRM_CHECKOUT);
+    sessionAttributes.put(Step.PREVIOUS_STEP, Step.CONFIRM_CHECKOUT);
     String profileEmail = handlerInput.getServiceClientFactory().getUpsService().getProfileEmail();
     String userEmail = profileEmail;
     OrderInvoice orderPreview = cartService.getCart(userEmail);

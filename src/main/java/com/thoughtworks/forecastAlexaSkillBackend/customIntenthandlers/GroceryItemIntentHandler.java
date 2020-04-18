@@ -32,7 +32,7 @@ public class GroceryItemIntentHandler implements RequestHandler {
         String profileEmail = handlerInput.getServiceClientFactory().getUpsService().getProfileEmail();
         String userEmail = profileEmail;
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-        sessionAttributes.put(Step.CURRENT_STEP, Step.GROCERY_ITEM );
+
         ShoppingList suggestedShoppingList = sessionAttributes.get(Constants.GROCERY_LIST) != null
                 ? ShoppingList.BuildShoppingList((List<Map<String, Object>>) sessionAttributes.get(Constants.GROCERY_LIST))
                 : new ShoppingListReader().suggestedList();
@@ -42,23 +42,32 @@ public class GroceryItemIntentHandler implements RequestHandler {
             sessionAttributes.put(Step.CURRENT_INDEX, 0 );
 
         int currentItemIndex = (int) sessionAttributes.get(Step.CURRENT_INDEX);
+        sessionAttributes.put(Step.CURRENT_INDEX, currentItemIndex+1 );
+        String previousStep = (String) sessionAttributes.get(Step.PREVIOUS_STEP);
 
-        //All the items are asked for ordering
-        if ( suggestedShoppingList.size() == currentItemIndex ) {
-            sessionAttributes.remove(Step.CURRENT_INDEX);
-            return handleConfirmCheckoutItem(handlerInput);
-        }
-        ShoppingItem suggestedItem = suggestedShoppingList.get(currentItemIndex);
-
-        if ( currentItemIndex != 0 ) {
+        if ( currentItemIndex > 0 &&  previousStep == Step.YES_INTENT) {
+            ShoppingItem lastSuggestedItem = suggestedShoppingList.get(currentItemIndex-1);
             //TODO if the current item in the list is already in AddToCart move to next suggestion
-            if (cartService.alreadyInCart(userEmail, suggestedItem)) {
+            if (cartService.alreadyInCart(userEmail, lastSuggestedItem)) {
+
+                sessionAttributes.put(Step.PREVIOUS_STEP, Step.GROCERY_ITEM );
                 return handle(handlerInput);
             }
             //TODO Add to Cart
-            cartService.addToCart(userEmail, suggestedItem);
+            log.info("Adding " + lastSuggestedItem.getName() + " to " + userEmail + "'s cart");
+            cartService.addToCart(userEmail, lastSuggestedItem);
         }
-        sessionAttributes.put(Step.CURRENT_INDEX, currentItemIndex+1 );
+        //All the items are asked for ordering
+        if ( suggestedShoppingList.size() == currentItemIndex ) {
+            sessionAttributes.remove(Step.CURRENT_INDEX);
+
+            sessionAttributes.put(Step.PREVIOUS_STEP, Step.GROCERY_ITEM );
+            return handleConfirmCheckoutItem(handlerInput);
+        }
+
+        ShoppingItem suggestedItem = suggestedShoppingList.get(currentItemIndex);
+
+        sessionAttributes.put(Step.PREVIOUS_STEP, Step.GROCERY_ITEM );
         String speechText = "Would you like to order "
                 .concat(suggestedItem.toString() + " ?");
         return handlerInput.getResponseBuilder()
