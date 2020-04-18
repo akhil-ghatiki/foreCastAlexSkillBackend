@@ -29,7 +29,7 @@ public class GroceryListIntentHandler implements RequestHandler {
         String speechText= "Items that are due in ordering are:";
         speechText = speechText.concat(suggestedShoppingList.toString()).concat(" would you like to proceed?");
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-        sessionAttributes.put(Step.CURRENT_STEP, Step.GROCERY_LIST );
+        sessionAttributes.put(Step.PREVIOUS_STEP, Step.GROCERY_LIST );
         if (suggestedShoppingList != null && !(suggestedShoppingList.size() > 0)) {
             speechText = "No Items are due for ordering. Have a good day.";
             return handlerInput.getResponseBuilder()

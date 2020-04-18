@@ -29,11 +29,12 @@ public class NoIntentHandler implements RequestHandler {
         String userEmail = profileEmail;
         String speechText = "Alright,";
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-        if(sessionAttributes.get(Step.CURRENT_STEP) !=null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.GROCERY_ITEM)){
+        if(sessionAttributes.get(Step.PREVIOUS_STEP) !=null && sessionAttributes.get(Step.PREVIOUS_STEP).equals(Step.GROCERY_ITEM)){
+            sessionAttributes.put(Step.PREVIOUS_STEP, Step.NO_INTENT );
             return handleGroceryItem(handlerInput);
         }
 
-        if(sessionAttributes.get(Step.CURRENT_STEP) !=null && sessionAttributes.get(Step.CURRENT_STEP).equals(Step.CONFIRM_CHECKOUT)){
+        if(sessionAttributes.get(Step.PREVIOUS_STEP) !=null && sessionAttributes.get(Step.PREVIOUS_STEP).equals(Step.CONFIRM_CHECKOUT)){
             speechText = speechText.concat(" Clearing the Cart");
             //TODO Clear Add to Cart List
             cartService.clearCart(userEmail);

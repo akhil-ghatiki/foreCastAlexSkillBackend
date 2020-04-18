@@ -35,7 +35,7 @@ public class OrderIntentHandler implements RequestHandler {
         String userEmail = profileEmail;
         RequestHelper requestHelper = RequestHelper.forHandlerInput(handlerInput);
         Map<String, Object> sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
-        sessionAttributes.put(Step.CURRENT_STEP, Step.GROCERY_ITEM );
+        sessionAttributes.put(Step.PREVIOUS_STEP, Step.GROCERY_ITEM );
 
         String orderName = requestHelper.getSlot(Slots.ORDER_NAME_SLOT).get().getValue();
         Double orderQuantity = Double.valueOf(requestHelper.getSlot(Slots.ORDER_QUANTITY_SLOT).get().getValue());
