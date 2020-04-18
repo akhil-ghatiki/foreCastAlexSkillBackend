@@ -61,8 +61,8 @@ public class RetailMart {
 
   private Company getCompany() {
     return Company.builder()
-            .companyName("RetailMart")
-            .companyEmail("contactus@retailmart.com")
+            .companyName("Grocery Mart")
+            .companyEmail("contactus@grocerymart.com")
             .build();
   }
 
