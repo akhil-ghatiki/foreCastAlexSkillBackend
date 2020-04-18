@@ -42,12 +42,15 @@ public class GroceryItemIntentHandler implements RequestHandler {
             sessionAttributes.put(Step.CURRENT_INDEX, 0 );
 
         int currentItemIndex = (int) sessionAttributes.get(Step.CURRENT_INDEX);
+        sessionAttributes.put(Step.CURRENT_INDEX, currentItemIndex+1 );
         String previousStep = (String) sessionAttributes.get(Step.PREVIOUS_STEP);
 
         if ( currentItemIndex > 0 &&  previousStep == Step.YES_INTENT) {
             ShoppingItem lastSuggestedItem = suggestedShoppingList.get(currentItemIndex-1);
             //TODO if the current item in the list is already in AddToCart move to next suggestion
             if (cartService.alreadyInCart(userEmail, lastSuggestedItem)) {
+
+                sessionAttributes.put(Step.PREVIOUS_STEP, Step.GROCERY_ITEM );
                 return handle(handlerInput);
             }
             //TODO Add to Cart
@@ -57,11 +60,13 @@ public class GroceryItemIntentHandler implements RequestHandler {
         //All the items are asked for ordering
         if ( suggestedShoppingList.size() == currentItemIndex ) {
             sessionAttributes.remove(Step.CURRENT_INDEX);
+
+            sessionAttributes.put(Step.PREVIOUS_STEP, Step.GROCERY_ITEM );
             return handleConfirmCheckoutItem(handlerInput);
         }
 
         ShoppingItem suggestedItem = suggestedShoppingList.get(currentItemIndex);
-        sessionAttributes.put(Step.CURRENT_INDEX, currentItemIndex+1 );
+
         sessionAttributes.put(Step.PREVIOUS_STEP, Step.GROCERY_ITEM );
         String speechText = "Would you like to order "
                 .concat(suggestedItem.toString() + " ?");
